@@ -1,3 +1,5 @@
 core = "7.x"
 description = "Description for form module"
-name = "Form Example Module"
+name = "Form Module"
+stylesheets[all][] = bootstrap/bootstrap.min.css
+stylesheets[all][] = style/style.css

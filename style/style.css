@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'Helvetica Neue Cyr Thin';
+    src: url('file:///C:/Users/admin/Desktop/testform/HelveticaNeueCyr-Thin.eot');
+    src: url('file:///C:/Users/admin/Desktop/testform/HelveticaNeueCyr-Thin.eot?#iefix') format('embedded-opentype'),
+        url('HelveticaNeueCyr-Thin.woff') format('woff'),
+        url('HelveticaNeueCyr-Thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.form{ font-family: "Helvetica Neue Cyr Thin";
+}
+
+.from-container form{
+    /*padding:0px 40px 20px;*/
+    margin:0px;
+
+    text-align:center;
+    color:white;
+}
+.from-container form a{
+    color:white;
+}
+.from-container{
+    padding:40px;
+}
+
+.from-container input{
+    background-color:transparent;
+    border:none;
+    border-bottom:1px solid white;
+    border-radius:0px;
+}
+.from-container{
+
+    background-color:#64b8df;
+    border-width: 0.5px;
+    border-color: rgb(149, 149, 149);
+    border-style: solid;
+    border-radius: 6px;
+}
+.from-container p {
+    color:white;
+    font-size: 26px;
+    line-height: 0.714;
+    text-align: center;
+}
+p.title {
+    font-size: 25px;
+
+    color: rgb(94, 100, 100);
+    margin-bottom:30px;
+    text-align: center;
+
+}
+
+button {
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    line-height: 0.909;
+    text-align: center;
+
+    border-radius: 4px;
+    background-color: #f27b30;
+    width:100%;
+
+}
+.links{
+    color:#5e6464;
+    padding-top:20px;
+    text-align:center;
+}
+.links a {
+    margin:0px 20px;
+    color:#5e6464;
+}
+.form-group div.domain{
+    margin:0px;
+    padding:15px 0px 0px;
+    text-align:left;
+    color:white;
+}
+
+input[type="text"]::-webkit-input-placeholder { color: #b2dcef; }
+input[type="text"]:-ms-input-placeholder { color: #b2dcef; }
+input[type="text"]::-ms-input-placeholder { color: #b2dcef; }
+input[type="text"]::placeholder { color: #b2dcef; } 

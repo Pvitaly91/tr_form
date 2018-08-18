@@ -77,7 +77,7 @@ function tr_form_schema() {
             'phone' => array(
                 'description' => 'phone',
                 'type' => 'varchar',
-                'length' => 16,
+                'length' => 24,
                 'not null' => TRUE,
                 'default' => '',
             ),
@@ -87,6 +87,13 @@ function tr_form_schema() {
                 'unsigned' => TRUE,
                 'not null' => TRUE,
                 'default' => 0,
+            ),
+            'city' => array(
+                'description' => 'city',
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => '',
             ),
         ),
 
