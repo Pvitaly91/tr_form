@@ -1,0 +1,132 @@
+<?
+
+
+function tr_form_schema() {
+     /* countries table*/
+    $schema = [];
+    $schema['tr_form_domains'] = array(
+        'description' => 'Countries',
+        'fields' => array(
+            'did' => array(
+                'description' => 'The primary identifier for domain',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => 'domain name',
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+        ),
+        'primary key' => array(
+            'did',
+        ),
+    );
+
+
+    $schema['tr_form_countries'] = array(
+        'description' => 'Countries',
+        'fields' => array(
+            'cid' => array(
+                'description' => 'The primary identifier for Countries',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => 'country name',
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+        ),
+        'primary key' => array(
+            'cid',
+        ),
+    );
+    
+    /* table form results*/
+
+    $schema['tr_form_result'] = array(
+        'description' => 'Form results',
+        'fields' => array(
+            'trid' => array(
+                'description' => 'The primary identifier for form result',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'domain_id' => array(
+                'description' => 'domain',
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'login' => array(
+                'description' => 'login',
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'phone' => array(
+                'description' => 'phone',
+                'type' => 'varchar',
+                'length' => 16,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'country_id' => array(
+                'description' => 'country',
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+
+        'primary key' => array(
+            'trid'
+        ),
+        'foreign keys' => array(
+            'fk_form_coutry_list' => array(
+                'table' => 'tr_form_countries',
+                'columns' => array(
+                    'country_id' => 'cid',
+                ),
+            ),
+           
+        ),
+
+    );
+
+    return $schema;
+}
+function tr_form_enable(){
+    drupal_install_schema('tr_form');
+
+    $data['tr_form_countries'] = [
+        "USA",
+        "France",
+        "Italy",
+        "Ukraine",
+        "UK",
+        "Germany"
+    ];
+    $data['tr_form_domains'] = [
+        "test1",
+        "test2",
+        "test3"
+    ];
+    foreach($data as $table => $values){
+        foreach($values as $v){
+             db_insert($table)->fields(["name" =>$v ])->execute();
+        }
+    }
+   
+}
