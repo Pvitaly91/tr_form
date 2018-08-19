@@ -19,38 +19,58 @@ function getCountries($id = NULL) {
 
     if (isset($id)) {
         //  return $countries[$id];
-        $result = db_select("tr_form_countries", "t")->fields("t", ["name"])->condition("cid", $id)->execute()->fetchAll();
+        $result = db_select("tr_form_countries", "t")->fields("t", ["name", "cid","phone_code"])->condition("cid", $id)->execute()->fetchAll();
         if(isset($result[0])){
-            $countries = $result[0]->name;
+            $countries["name"] = $result[0]->name;
+            $countries["phone_code"] = $result[0]->phone_code;
         }
     } else {
-        $result = db_select("tr_form_countries", "t")->fields("t", ["name", "cid"])->execute()->fetchAllAssoc('cid');
+        $result = db_select("tr_form_countries", "t")->fields("t", ["name", "cid","phone_code"])->execute()->fetchAllAssoc('cid');
         if (is_array($result)) {
             foreach ($result as $cid => $item) {
-                $countries[$cid] = $item->name;
+                $countries[$item->cid]["name"] = $item->name;
+                $countries[$item->cid]["phone_code"] = $item->phone_code;
             }
         }
     }
+   
     return $countries;
 }
+function makePhone($code,$phone){
+    $pNumber = str_split($code.$phone);
 
+    $result = "";
+    foreach($pNumber as $sym){
+        if(is_numeric($sym)){
+            $result .=$sym;
+        }
+    }
+    if(count($pNumber)> 18 || count($pNumber)< 11)
+        return FALSE;
+    return $result;
+}
 function domain_form() {
-    /*
-      TOODO Country array must take from DB or Another source
-
-     */
-
+ 
     $form['domain'] = array(
         '#type' => 'textfield',
         '#attributes' => array('placeholder' => t('Domain')),
+        '#required' => TRUE    
     );
     $form['login'] = array(
         '#type' => 'textfield',
         '#attributes' => array('placeholder' => t('Login')),
+        '#required' => TRUE 
     );
+    $country = getCountries();
+    foreach($country as $id => $item){
+         $countries[$id] = $item["name"];
+         $attr["data-code"][$id] = $item["phone_code"];
+    }
+   
     $form['country_id'] = array(
         '#type' => 'select',
-        '#options' => getCountries()
+        '#options' => $countries,
+        '#attributes' => $attr
     );
     $form['city'] = array(
         '#type' => 'textfield',
@@ -58,10 +78,12 @@ function domain_form() {
     $form['code'] = array(
         '#type' => 'textfield',
         '#attributes' => array('placeholder' => t('Code')),
+        '#required' => TRUE 
     );
     $form['phone'] = array(
         '#type' => 'textfield',
         '#attributes' => array('placeholder' => t('Phone')),
+        '#required' => TRUE 
     );
     $form['submit'] = array(
         '#type' => 'submit',
@@ -90,7 +112,34 @@ function tr_form_theme($existing, $type, $theme, $path) {
 }
 
 function domain_form_validate($form, &$form_state) {
-    // form_set_error('zip',t('sasasa'));
+   
+     $domain = $form_state["values"]["domain"];
+    if(db_select("tr_form_domains","d")->fields("d",["did"])->condition("name",$domain)->execute()->fetch() !== false){
+        form_set_error('domain',t('Domain already exixts'));
+    }elseif(!preg_match("'^[a-z0-9]+[a-z0-9-]+$'", $domain)){
+        form_set_error('domain1',t('Domain contains invalid character'));
+    }
+ 
+    //Country validation
+    if(empty($form_state["values"]["country_id"])&& is_int($form_state["values"]["country_id"]) && !getCountries($form_state["values"]["country_id"])){
+   
+        form_set_error('country_id',t('Invalied country'));
+    }
+  
+    //Login validation
+    if(!$form_state["values"]["login"]){
+        form_set_error('login2',t('Login can not be empty'));
+    }elseif(!empty($form_state["values"]["login"]) &&  !preg_match("'^[a-zA-Z0-9-_.]+$'", $form_state["values"]["login"])){
+        form_set_error('login1',t('Login contains invalid character'));
+    } 
+    //City validation
+    if(!empty($form_state["values"]["city"]) &&  !preg_match("'^[a-zA-Z0-9-_ .]+$'", $form_state["values"]["city"])){
+        form_set_error('domain1',t('City contains invalid character'));
+    }
+    //Phone validation
+    if ( !makePhone($form_state["values"]["code"], $form_state["values"]["phone"])){
+        form_set_error('phone1',t('Invalid phone'));
+    }
 }
 
 function domain_form_submit($form, &$form_state) {
@@ -104,7 +153,7 @@ function domain_form_submit($form, &$form_state) {
     *  Add form result
     *  making array of fileds for insert to DB
     */
-    $insert["phone"] = $form_state["values"]["code"] . $form_state["values"]["phone"];
+    $insert["phone"] = makePhone($form_state["values"]["code"],$form_state["values"]["phone"]);
     $insert["country_id"] = $form_state["values"]["country_id"];
     isset($form_state["values"]["city"]) ? $insert["city"] = $form_state["values"]["city"] : true;
     $insert["login"] = $form_state["values"]["login"];
@@ -113,7 +162,7 @@ function domain_form_submit($form, &$form_state) {
     //inserting new form result to DB
     db_insert("tr_form_result")->fields($insert)->execute();
     $insert["domain"] = $domain["name"];
-    $insert["country"] = getCountries($insert["country_id"]);
+    $insert["country"] = getCountries($insert["country_id"])["name"];
     unset($insert["domain_id"]);
     unset($insert["country_id"]);
     

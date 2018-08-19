@@ -91,7 +91,7 @@ global $base_path;
     input[type="text"]::placeholder { color: #b2dcef; } 
 
 </style>
-<? kint($variables["form"]);?>
+
 <div class="row">
     <div class="col-sm-12 form">
         <div class="form">
@@ -110,9 +110,13 @@ global $base_path;
                                         name="<?= $f_name ?>"
                                         value="<?= $f["#value"] ?>" 
                                         maxlength="<?= $f["#maxlength"] ?>" 
+                                        <?/*if($f['#required'] == TRUE):?>
+                                            required
+                                        <? endif;*/?>
                                         <?
                                         if (is_array($f['#attributes'])):
                                             foreach ($f['#attributes'] as $attr_name => $attr_value):
+                                                if($attr_name == 'placeholder' && $f['#required'] == TRUE) { $attr_value = $attr_value."*"; }
                                                 echo " " . $attr_name . "=" . $attr_value;
                                             endforeach;
                                         endif;
@@ -128,9 +132,13 @@ global $base_path;
                                             name="<?= $f_name ?>"
                                             value="<?= $f["#value"] ?>" 
                                             maxlength="<?= $f["#maxlength"] ?>" 
+                                            <?if($f['#required'] == TRUE):?>
+                                            required
+                                            <? endif;?>
                                             <?
                                             if (is_array($f['#attributes'])):
                                                 foreach ($f['#attributes'] as $attr_name => $attr_value):
+                                                    if($attr_name == 'placeholder' && $f['#required'] == TRUE) { $attr_value = $attr_value."*"; }
                                                     echo " " . $attr_name . "=" . $attr_value;
                                                 endforeach;
                                             endif;
@@ -144,10 +152,17 @@ global $base_path;
                              <? elseif ($f['#type'] == "select" && is_array($f['#options'])): ?>
                                 <div class="form-group form-item form-type-select form-item-country">
                                     <select id="edit-country" name="<?= $f_name ?>" class="custom-select tr-form-select" >
+                                        <?
+                                        $data_codes = $f['#attributes']['data-code'];
+                                        $selected_code = $data_codes[key($data_codes)]?>
                                         <? foreach ($f['#options'] as $id => $value): ?>
                                             <option 
-                                                value="<?= $id ?>"
-                                                <? ($f['#value'] == $id) ? print("selected") : false; ?> 
+                                                data-code="<?=$data_codes[$id]?>"
+                                                value="<?=$id ?>"
+                                                <? if($f['#value'] == $id) {
+                                                    echo "selected";
+                                                    $selected_code = $data_codes[$id];
+                                                } ?> 
                                              ><?= $value ?></option>
                                         <? endforeach; ?>
                                     </select>
@@ -164,9 +179,13 @@ global $base_path;
                                     type="text"
                                     id="edit-code"
                                     name="code"
-                                    value="<?= $variables["form"]["code"]["#value"] ?>" 
+                                    value="<?= $selected_code ?>" 
+                                    <?if($variables["form"]["code"]['#required'] == TRUE):?>
+                                        required
+                                    <? endif;?>
                                     <? if (is_array($variables["form"]["code"]['#attributes'])):
                                         foreach ($variables["form"]["code"]['#attributes'] as $attr_name => $attr_value):
+                                            if($attr_name == 'placeholder' && $variables["form"]["code"]['#required'] == TRUE) { $attr_value = $attr_value."*"; }
                                             echo " " . $attr_name . "=" . $attr_value;
                                         endforeach;
                                     endif;?>
@@ -178,8 +197,12 @@ global $base_path;
                                     id="edit-phone"
                                     name="phone"
                                     value="<?= $variables["form"]["phone"]["#value"] ?>" 
+                                    <?if($variables["form"]["phone"]['#required'] == TRUE):?>
+                                        required
+                                    <? endif;?>
                                     <?if (is_array($variables["form"]["phone"]['#attributes'])):
                                         foreach ($variables["form"]["phone"]['#attributes'] as $attr_name => $attr_value):
+                                            if($attr_name == 'placeholder' && $variables["form"]["phone"]['#required'] == TRUE) { $attr_value = $attr_value."*"; }
                                             echo " " . $attr_name . "=" . $attr_value;
                                         endforeach;
                                     endif;?>

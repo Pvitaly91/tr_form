@@ -1,5 +1,7 @@
 core = "7.x"
 description = "Description for form module"
 name = "Form Module"
+scripts[] = js/jquery.maskedinput.js
+scripts[] = js/script.js
 stylesheets[all][] = bootstrap/bootstrap.min.css
 stylesheets[all][] = style/style.css

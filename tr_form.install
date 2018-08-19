@@ -43,6 +43,13 @@ function tr_form_schema() {
                 'not null' => TRUE,
                 'default' => '',
             ),
+            'phone_code' => array(
+                'description' => 'country phone code',
+                'type' => 'varchar',
+                'length' => 6,
+                'not null' => TRUE,
+                'default' => '',
+            ),
         ),
         'primary key' => array(
             'cid',
@@ -114,26 +121,30 @@ function tr_form_schema() {
 
     return $schema;
 }
-function tr_form_enable(){
+
+function setModuleTables(){
     drupal_install_schema('tr_form');
 
     $data['tr_form_countries'] = [
-        "USA",
-        "France",
-        "Italy",
-        "Ukraine",
-        "UK",
-        "Germany"
+        ["name" => "USA", "phone_code" => "+1"],
+        ["name" =>"France", "phone_code" => "+33"],
+        ["name" =>"Italy", "phone_code" => "+39"],
+        ["name" =>"Ukraine", "phone_code" => "+38"],
+        ["name" =>"UK", "phone_code" => "+44"],
+        ["name" =>"Germany", "phone_code" => "+49"]
     ];
     $data['tr_form_domains'] = [
-        "test1",
-        "test2",
-        "test3"
+       ["name" =>"test1"],
+       ["name" =>"test2"],
+       ["name" =>"test3"]
     ];
     foreach($data as $table => $values){
         foreach($values as $v){
-             db_insert($table)->fields(["name" =>$v ])->execute();
+             db_insert($table)->fields($v)->execute();
         }
     }
+}
+function tr_form_enable(){
+   setModuleTables();
    
 }
