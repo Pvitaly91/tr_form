@@ -3,6 +3,11 @@
 global $base_path;
 ?>
 <style>
+    <?
+    /*
+     * fonts and bootstrap must include in theme template
+     */
+    ?>
     @font-face {
         font-family: 'Helvetica Neue Cyr Thin';
         src: url('/<?=drupal_get_path("module","tr_form")?>/fonts/HelveticaNeueCyr-Thin.ttf') format('truetype');
@@ -18,7 +23,7 @@ global $base_path;
             <p class="title"><?=drupal_get_title();?>:</p>
             <div class="form-container">
                 <p><?=t('Register for a 14-day Free Trial')?></p>
-                <form action="/learn/tr-form" method="post" id="<?= $variables["form"]['#form_id'] ?>" accept-charset="UTF-8">
+                <form action="<?=$variables["form"]['#action']?>" method="post" id="<?= $variables["form"]['#form_id'] ?>" accept-charset="UTF-8">
                     <? foreach ($variables["form"] as $f_name => $f): ?>
                         <? if (is_array($f) && isset($f['#type'])): ?>
                             <? if ($f['#type'] == "textfield" && $f_name != "domain" && $f_name != "code" && $f_name != "phone"): ?>
