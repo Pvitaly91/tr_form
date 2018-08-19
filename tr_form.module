@@ -138,6 +138,8 @@ function domain_form_validate($form, &$form_state) {
     $login = trim($form_state["values"]['login']);
     if(!$login){
         form_set_error('login2',t('Login can not be empty'));
+    }elseif(db_select("tr_form_result","f")->fields("f",["trid"])->condition("login", $login)->execute()->fetch() !== false){
+        form_set_error('login23',t('Login already exixts'));
     }elseif(strlen($login) <=3 || strlen($login) >= 32){
         form_set_error('login3',t('Login must be longer than 3 and not longer than 32 characters'));
     }elseif(!empty($login) &&  !preg_match("'^[a-zA-Z0-9-_.]+$'", $login)){
