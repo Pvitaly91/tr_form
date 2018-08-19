@@ -5,11 +5,10 @@ global $base_path;
 <style>
     @font-face {
         font-family: 'Helvetica Neue Cyr Thin';
-        src: url('/sites/all/modules/tr_form/fonts/HelveticaNeueCyr-Thin.ttf') format('truetype');
+        src: url('/<?=drupal_get_path("module","tr_form")?>/fonts/HelveticaNeueCyr-Thin.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
-   
 </style>
 
 <div class="row">
@@ -30,9 +29,9 @@ global $base_path;
                                         name="<?= $f_name ?>"
                                         value="<?= $f["#value"] ?>" 
                                         maxlength="<?= $f["#maxlength"] ?>" 
-                                        <?/*if($f['#required'] == TRUE):?>
+                                        <? if($f['#required'] == TRUE):?>
                                             required
-                                        <? endif;*/?>
+                                        <? endif;?>
                                         <?
                                         if (is_array($f['#attributes'])):
                                             foreach ($f['#attributes'] as $attr_name => $attr_value):
@@ -53,7 +52,7 @@ global $base_path;
                                             value="<?= $f["#value"] ?>" 
                                             maxlength="<?= $f["#maxlength"] ?>" 
                                             <?if($f['#required'] == TRUE):?>
-                                            required
+                                                required
                                             <? endif;?>
                                             <?
                                             if (is_array($f['#attributes'])):
