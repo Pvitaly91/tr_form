@@ -146,7 +146,7 @@ function domain_form_submit($form, &$form_state) {
    // kint($form_state);
     /* add new domain */
     $domain = $insert = [];
-    $domain["name"] = $form_state["values"]["domain"] . "." . getDomainZone();
+    $domain["name"] = $form_state["values"]["domain"];
     $domain_id = db_insert("tr_form_domains")->fields($domain)->execute();
 
     /*

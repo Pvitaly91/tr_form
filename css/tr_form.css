@@ -1,13 +1,5 @@
-@font-face {
-    font-family: 'Helvetica Neue Cyr Thin';
-    src: url('file:///C:/Users/admin/Desktop/testform/HelveticaNeueCyr-Thin.eot');
-    src: url('file:///C:/Users/admin/Desktop/testform/HelveticaNeueCyr-Thin.eot?#iefix') format('embedded-opentype'),
-        url('HelveticaNeueCyr-Thin.woff') format('woff'),
-        url('HelveticaNeueCyr-Thin.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-.form{ font-family: "Helvetica Neue Cyr Thin";
+.form{
+    font-family: "Helvetica Neue Cyr Thin";
 }
 
 .from-container form{
@@ -23,12 +15,19 @@
 .from-container{
     padding:40px;
 }
-
-.from-container input{
+.form_bottom{
+      text-align: center !important;
+}
+.form_bottom a{
+  
+    color: white !important;
+}
+.from-container input, .from-container .tr-form-select{
     background-color:transparent;
-    border:none;
-    border-bottom:1px solid white;
+    border:none !important;
+    border-bottom:1px solid white !important;
     border-radius:0px;
+    color:white;
 }
 .from-container{
 
@@ -54,15 +53,16 @@ p.title {
 }
 
 button {
-    font-size: 22px;
+    font-size: 22px !important;
     color: rgb(255, 255, 255);
     line-height: 0.909;
     text-align: center;
-
+    font-weight: bold !important;
+   letter-spacing: 2px !important;
     border-radius: 4px;
     background-color: #f27b30;
     width:100%;
-
+    padding: 12px !important;
 }
 .links{
     color:#5e6464;
@@ -79,7 +79,10 @@ button {
     text-align:left;
     color:white;
 }
+.tr-form-select{
 
+    color: #b2dcef;
+}
 input[type="text"]::-webkit-input-placeholder { color: #b2dcef; }
 input[type="text"]:-ms-input-placeholder { color: #b2dcef; }
 input[type="text"]::-ms-input-placeholder { color: #b2dcef; }

@@ -9,87 +9,7 @@ global $base_path;
         font-weight: normal;
         font-style: normal;
     }
-    .form{ font-family: "Helvetica Neue Cyr Thin";
-    }
-
-    .from-container form{
-        /*padding:0px 40px 20px;*/
-        margin:0px;
-
-        text-align:center;
-        color:white;
-    }
-    .from-container form a{
-        color:white;
-    }
-    .from-container{
-        padding:40px;
-    }
-
-    .from-container input, .from-container .tr-form-select{
-        background-color:transparent;
-        border:none;
-        border-bottom:1px solid white;
-        border-radius:0px;
-    }
-    .from-container{
-
-        background-color:#64b8df;
-        border-width: 0.5px;
-        border-color: rgb(149, 149, 149);
-        border-style: solid;
-        border-radius: 6px;
-    }
-    .from-container p {
-        color:white;
-        font-size: 26px;
-        line-height: 0.714;
-        text-align: center;
-    }
-    p.title {
-        font-size: 25px;
-
-        color: rgb(94, 100, 100);
-        margin-bottom:30px;
-        text-align: center;
-
-    }
-
-    button {
-        font-size: 22px;
-        color: rgb(255, 255, 255);
-        line-height: 0.909;
-        text-align: center;
-
-        border-radius: 4px;
-        background-color: #f27b30;
-        width:100%;
-
-    }
-    .links{
-        color:#5e6464;
-        padding-top:20px;
-        text-align:center;
-    }
-    .links a {
-        margin:0px 20px;
-        color:#5e6464;
-    }
-    .form-group div.domain{
-        margin:0px;
-        padding:15px 0px 0px;
-        text-align:left;
-        color:white;
-    }
-    .tr-form-select{
-        
-        color: #b2dcef;
-    }
-    input[type="text"]::-webkit-input-placeholder { color: #b2dcef; }
-    input[type="text"]:-ms-input-placeholder { color: #b2dcef; }
-    input[type="text"]::-ms-input-placeholder { color: #b2dcef; }
-    input[type="text"]::placeholder { color: #b2dcef; } 
-
+   
 </style>
 
 <div class="row">
@@ -146,7 +66,7 @@ global $base_path;
                                             class="form-text form-control">
                                     </div>
                                     <div class="col-sm-5 domain">
-                                        <?=getDomainZone()?>
+                                        .<?=getDomainZone()?>
                                     </div>
                                 </div>
                              <? elseif ($f['#type'] == "select" && is_array($f['#options'])): ?>
@@ -210,14 +130,15 @@ global $base_path;
                             </div>
                         </div>
                    
-                    <div class="form-group">
+                    <div class="form-group form_bottom">
                         <button type="submit" id="edit-submit" name="op" class="btn "><?= $variables["form"]['submit']["#value"] ?></button>
                         <? if(isset($variables["form"]["form_build_id"]["#value"])):?><input type="hidden" name="form_build_id" value="<?= $variables["form"]['form_build_id']["#value"] ?>"><? endif;?>
                         <? if(isset($variables["form"]["form_token"]["#value"])):?><input type="hidden" name="form_token" value="<?= $variables["form"]["form_token"]["#value"] ?>"><? endif;?>
                         <? if(isset($variables["form"]["form_id"]["#value"])):?><input type="hidden" name="form_id" value="<?= $variables["form"]['form_id']["#value"] ?>"><? endif;?>
+                         <hr>
+                        <a href="<?=$base_path?>user/register"><? user_is_logged_in() ? print(t('Edit Profile')) :  print(t('Create Account'))?></a>
                     </div>
-                    <hr>
-                    <a href="<?=$base_path?>user/register"><? user_is_logged_in() ? print(t('Edit Profile')) :  print(t('Create Account'))?></a>
+                   
                 </form>
             </div>
             <div class="links">

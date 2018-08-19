@@ -114,7 +114,12 @@ function tr_form_schema() {
                     'country_id' => 'cid',
                 ),
             ),
-           
+            'fk_form_domain' => array(
+                'table' => 'tr_form_domains',
+                'columns' => array(
+                    'domain_id' => 'did',
+                ),
+            ),
         ),
 
     );
