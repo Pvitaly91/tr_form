@@ -2,34 +2,37 @@
     font-family: "Helvetica Neue Cyr Thin";
 }
 
-.from-container form{
-    /*padding:0px 40px 20px;*/
+.form-container form{
     margin:0px;
-
     text-align:center;
     color:white;
 }
-.from-container form a{
+.form-container form a{
     color:white;
 }
-.from-container{
-    padding:40px;
+.form-container{
+    padding:55px 55px 35px;
 }
 .form_bottom{
-      text-align: center !important;
+    text-align: center !important;
+    margin-top: 30px !important;
+    margin-bottom: 0px !important; 
+    font-size: 14px !important; 
 }
-.form_bottom a{
-  
+.form_bottom hr{
+    margin: 20px 0px 10px 0px;
+}
+.form_bottom a{ 
     color: white !important;
 }
-.from-container input, .from-container .tr-form-select{
+.form-container input, .form-container .tr-form-select{
     background-color:transparent;
     border:none !important;
     border-bottom:1px solid white !important;
     border-radius:0px;
     color:white;
 }
-.from-container{
+.form-container{
 
     background-color:#64b8df;
     border-width: 0.5px;
@@ -37,32 +40,33 @@
     border-style: solid;
     border-radius: 6px;
 }
-.from-container p {
+.form-container p {
     color:white;
     font-size: 26px;
     line-height: 0.714;
     text-align: center;
 }
-p.title {
+ .form p.title {
     font-size: 25px;
-
     color: rgb(94, 100, 100);
     margin-bottom:30px;
     text-align: center;
-
 }
 
-button {
-    font-size: 22px !important;
+.form-container button {
+    font-size: 20px !important;
     color: rgb(255, 255, 255);
     line-height: 0.909;
     text-align: center;
-    font-weight: bold !important;
-   letter-spacing: 2px !important;
+    
+    letter-spacing: 1px !important;
     border-radius: 4px;
     background-color: #f27b30;
     width:100%;
-    padding: 12px !important;
+    padding: 16px !important;
+}
+.form-container .form-group{
+    margin-bottom: 5px;
 }
 .links{
     color:#5e6464;
@@ -73,10 +77,13 @@ button {
     margin:0px 20px;
     color:#5e6464;
 }
+
 .form-group div.domain{
     margin:0px;
     padding:15px 0px 0px;
+    margin-left: -5px;
     text-align:left;
+    font-size: 18px;
     color:white;
 }
 .tr-form-select{

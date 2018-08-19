@@ -12,11 +12,11 @@ global $base_path;
 </style>
 
 <div class="row">
-    <div class="col-sm-12 form">
+    <div class="col-sm-8 form">
         <div class="form">
           
-            <p class="title"><?=drupal_get_title();?></p>
-            <div class="from-container">
+            <p class="title"><?=drupal_get_title();?>:</p>
+            <div class="form-container">
                 <p><?=t('Register for a 14-day Free Trial')?></p>
                 <form action="/learn/tr-form" method="post" id="<?= $variables["form"]['#form_id'] ?>" accept-charset="UTF-8">
                     <? foreach ($variables["form"] as $f_name => $f): ?>
@@ -130,7 +130,8 @@ global $base_path;
                         </div>
                    
                     <div class="form-group form_bottom">
-                        <button type="submit" id="edit-submit" name="op" class="btn "><?= $variables["form"]['submit']["#value"] ?></button>
+                       <button type="submit" id="edit-submit" name="op" class="btn form-submit ajax-processed"><?= $variables["form"]['submit']["#value"] ?></button>
+                      
                         <? if(isset($variables["form"]["form_build_id"]["#value"])):?><input type="hidden" name="form_build_id" value="<?= $variables["form"]['form_build_id']["#value"] ?>"><? endif;?>
                         <? if(isset($variables["form"]["form_token"]["#value"])):?><input type="hidden" name="form_token" value="<?= $variables["form"]["form_token"]["#value"] ?>"><? endif;?>
                         <? if(isset($variables["form"]["form_id"]["#value"])):?><input type="hidden" name="form_id" value="<?= $variables["form"]['form_id']["#value"] ?>"><? endif;?>

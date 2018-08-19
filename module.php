@@ -3,18 +3,20 @@
 /**
  *  Implements hook_menu
  */
+
 function tr_form_menu() {
-    $items['learn/tr-form'] = [
-        'title' => t('TerraSoft'),
+    $items['tr-form'] = [
+        'title' => t('Terrasoft'),
         'page callback' => 'drupal_get_form',
-        //   'page callback' => "tr_form_html_page",
         'page arguments' => ['domain_form'],
         'access callback' => TRUE,
         'type' => MENU_NORMAL_ITEM
     ];
     return $items;
 }
-
+/*
+* get countries list from table tr_form_countries
+ */
 function getCountries($id = NULL) {
 
     if (isset($id)) {
@@ -36,6 +38,9 @@ function getCountries($id = NULL) {
    
     return $countries;
 }
+/*
+*   make phone number with code and phone
+ */
 function makePhone($code,$phone){
     $pNumber = str_split($code.$phone);
 
@@ -49,6 +54,7 @@ function makePhone($code,$phone){
         return FALSE;
     return $result;
 }
+
 function domain_form() {
  
     $form['domain'] = array(
@@ -87,7 +93,7 @@ function domain_form() {
     );
     $form['submit'] = array(
         '#type' => 'submit',
-        '#value' => 'Register',
+        '#value' => t('Register'),       
     );
 
     return $form;
@@ -100,6 +106,7 @@ function getDomainZone() {
 /**
  *  Implements hook_theme()
  */
+
 function tr_form_theme($existing, $type, $theme, $path) {
 
     $items['domain_form'] = array(
@@ -143,7 +150,7 @@ function domain_form_validate($form, &$form_state) {
 }
 
 function domain_form_submit($form, &$form_state) {
-   // kint($form_state);
+    // kint($form_state);
     /* add new domain */
     $domain = $insert = [];
     $domain["name"] = $form_state["values"]["domain"];
